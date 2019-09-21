@@ -19,7 +19,7 @@ Tables Content:
 | -------- | ------ | -------- | ------ | ----- |
 | id       | integer| yes      | yes    | User's id |
 | username | string | yes      | yes    | User's username |
-| password | string | yes      | no     | User's hashed password |
+| password | string | yes     | no     | User's hashed password |
 | name     | string | yes      | no     | User's name |
 | email    | string | yes      | yes    | User's email |
 | admin_id | integer| no       | yes    | If admin, give admin id |
