@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const db = require("../database/dbConfig.js");
 
 const Users = require('./auth-model.js');
 const secrets = require('../config/secrets.js');
@@ -15,11 +16,12 @@ router.get("/", (req, res) => {
     });
 });
 
-router.post('/register', validateRegister, (req, res) => {
+router.post('/register', validateRegister, userType, (req, res) => {
   const user = req.body;
   const hash = bcrypt.hashSync(user.password);
   user.password = hash;
-//   if (user.admin)
+  console.log(user);
+
   Users.add(user)
   .then(added => {
     res.status(201).json(added);
@@ -83,6 +85,25 @@ function validateRegister(req, res, next) {
         return res.status(400).json({error: "Must create password"});
     }
     next();
+}
+
+function userType(req, res, next) {
+  const {isAdmin, isBoard} = req.body;
+  if (isAdmin) {
+    delete req.body.isAdmin;
+    Users.addAdmin({user_id: null, school_id: null})
+    .then(added => {
+      req.body.admin_id = added[0];
+      next();
+    })
+  } else if (isBoard) {
+    delete req.body.isBoard;
+    Users.addBoard({ user_id: null })
+    .then(added => {
+      req.body.board_id = added[0];
+      next();
+    })
+  }
 }
 
 module.exports = router;

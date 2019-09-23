@@ -4,7 +4,7 @@ const helment = require("helmet");
 
 const server = express();
 
-const authRoute = require("../auth/auth-route.js");
+const authRoute = require("../auth/auth-router.js");
 
 //gobal middleware
 server.use(helment());
