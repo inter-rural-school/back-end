@@ -5,6 +5,7 @@ const helment = require("helmet");
 const server = express();
 
 const authRoute = require("../auth/auth-router.js");
+const schoolRoute = require("../schools/school-router.js")
 
 //gobal middleware
 server.use(helment());
@@ -13,5 +14,6 @@ server.use(express.json());
 
 //Routes
 server.use("/auth", authRoute);
+server.use("/schools", schoolRoute);
 
 module.exports = server;
