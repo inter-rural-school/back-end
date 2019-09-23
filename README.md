@@ -127,5 +127,67 @@ If successful, it will return with a `201` HTTP status.
     - id, user_id (access to user data such as first_name, last_name, email, and username)
 
 ### Schools
-- In Progress
-- Will be able to make a post request to add a school (school_name and location) to the user
+- Get list of schools with get:
+```
+https://internationalrsr.herokuapp.com/schools
+```
+Returns:
+```
+[
+  {
+    "id": 1,
+    "school_name": "Test School",
+    "location": "Test Location"
+  },
+  {
+    "id": 2,
+    "school_name": "Test School1",
+    "location": "Test Location1"
+  }
+]
+```
+
+- Get a school with get:
+```
+https://internationalrsr.herokuapp.com/schools/:schoolid
+```
+where schoolid is the id of the school.
+Returns:
+```
+{
+  "id": 1,
+  "school_name": "Test School",
+  "location": "Test Location Test"
+}
+```
+- Add a school with post:
+```
+https://internationalrsr.herokuapp.com/schools
+```
+Expects:
+```
+{
+	"school_name": "school name",
+	"location": "location"
+}
+```
+This allows user to create a new school if it is not already listed.
+
+- Edit a school with get:
+```
+https://internationalrsr.herokuapp.com/schools/:schoolid
+```
+Edit the specific school with schoolid.
+Expects:
+```
+{
+  "school_name": "Edited School Name",
+  "location": "Edited Location"
+}
+```
+
+- Delete a School:
+```
+https://internationalrsr.herokuapp.com/schools/:schoolid
+```
+Delete the specific school with schoolid (you will want to do this if the school no longer exists).
