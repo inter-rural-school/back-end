@@ -24,5 +24,5 @@ function getAdmin(id) {
 }
 
 function getAdminsAtSchool(school_id){
-  return db('admins').where({school_id})
+  return db('admins').where({school_id});
 }
