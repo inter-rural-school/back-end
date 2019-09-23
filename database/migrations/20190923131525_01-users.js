@@ -13,6 +13,7 @@ exports.up = function(knex) {
         .notNullable()
         .unique();
       users.string("password", 255).notNullable();
+      users.boolean("isBoardMember").notNullable();
       users
         .integer("admin_id")
         .unsigned()

@@ -88,19 +88,17 @@ function validateRegister(req, res, next) {
 }
 
 function userType(req, res, next) {
-  const {Admin, Board} = req.body;
-  if (Admin) {
-    delete req.body.Admin;
-    Users.addAdmin({user_id: null, school_id: null})
-    .then(added => {
-      req.body.admin_id = added[0];
-      next();
-    })
-  } else if (Board) {
-    delete req.body.Board;
+  const {isBoardMember} = req.body;
+  if (isBoardMember === 1) {
     Users.addBoard({ user_id: null })
     .then(added => {
       req.body.board_id = added[0];
+      next();
+    })
+  } else if (isBoardMember === 0) {
+    Users.addAdmin({user_id: null, school_id: null})
+    .then(added => {
+      req.body.admin_id = added[0];
       next();
     })
   }

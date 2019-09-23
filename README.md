@@ -95,7 +95,7 @@ If successful, it will return a `201` HTTP status and will return a token:
 
 ### Registration
 
-For Admin, expects an object with this format as the request body:
+Expects an object with this format as the request body:
 
 ```
   --header "Content-Type: application/json"
@@ -106,24 +106,11 @@ For Admin, expects an object with this format as the request body:
 	"email": "test3@test.com", //string
 	"username": "test3", //string
 	"password": "test3", //string
-	"Admin": True // boolean (will automatically set Board to false)
+	"isBoardMember": True // boolean (will create board_id, if false will create admin_id)
 }
 ```
-For Board:
 
-```
-  --header "Content-Type: application/json"
-  --data: 
-{
-	"first_name": "test3", //string
-	"last_name": "test3", //string
-	"email": "test3@test.com", //string
-	"username": "test3", //string
-	"password": "test3", //string
-	"Board": True // boolean (will automatically set Admin to false)
-}
-```
-- When setting Board or Admin to true, a board_id or admin_id will be created, and Board or Admin will be deleted from data.
+- When setting isBoardMember to true, a board_id will be created, and if isBoardMember is false, a admin_id will be created.
 
 If any of the required fields are missing, it will reject the request with a `400` HTTP status.
 
