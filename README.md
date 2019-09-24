@@ -123,14 +123,34 @@ If successful, it will return with a `201` HTTP status.
 - Get list of all admins (regardless of school) and returns an array of admins with get request:
 ```
 https://internationalrsr.herokuapp.com/admins
+
+Returns an array of Admins:
+
+[
+  {
+    "id": 1,
+    "user_id": 3,
+    "school_id": 2
+  },
+  {
+    "id": 2,
+    "user_id": 4,
+    "school_id": null
+  },
+  {
+    "id": 3,
+    "user_id": 5,
+    "school_id": null
+  }
+]
 ```
 
 - Get info of admin by id with get request:
 ```
 https://internationalrsr.herokuapp.com/admins/:id
-```
+
 Returns:
-```
+
 {
   "first_name": "test2",
   "last_name": "test2",
@@ -143,9 +163,9 @@ Returns:
 - Edit admin school with put request (update school_id):
 ```
 https://internationalrsr.herokuapp.com/admins/:id
-```
+
 Expects:
-```
+
 {
   "school_id": 2
 }
