@@ -96,7 +96,7 @@ function userType(req, res, next) {
       next();
     })
   } else if (isBoardMember === 0) {
-    Users.addAdmin({user_id: null, school_id: null})
+    Users.addAdmin({user_id: null, school_name: null})
     .then(added => {
       req.body.admin_id = added[0];
       next();

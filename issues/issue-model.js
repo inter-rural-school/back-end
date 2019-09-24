@@ -1,10 +1,12 @@
 const db = require('../database/dbConfig.js');
+const Comments = require('../comments/comment-model.js');
 
 module.exports = {
   createIssue,
   getAllIssues,
-  getSchoolIssues,
-  updateIssue
+  getAnIssues,
+  editIssue,
+  insert
 };
 
 //Admins should be able to create issues
@@ -18,16 +20,27 @@ function getAllIssues() {
 }
 
 //Admins should see this
-function getSchoolIssues(school_id) {
-    return db('issues').where({ school_id });
+function getAnIssues(id) {
+    return db('issues').where({id}).first();
 }
 
-
-//Board member should be able to update school issue status, and add a comment
-function updateIssue(changes, comment_id) {
+function editIssue(changes, id) {
     return db('issues')
-      .innerJoin('comments', "issues.comment_id", "comments.id")
-      .select("issues.status", "comments.comment")
-      .where({id: comment_id})
-      .update(changes);
+    .where({ id })
+    .update(changes);
+}
+
+function getById(id) {
+    const issueQuery = db('issues').where({id}).first();
+    return Promise.all([issueQuery, Comments.getIssueByIdd(id)])
+        .then(([issue, comments]) => {
+            issue.comments =comments;
+            return issue;
+        });
+}
+
+function insert (issue){
+    return db('issues')
+    .insert(issue, 'id')
+    .then(([id]) => getById(id));
 }
