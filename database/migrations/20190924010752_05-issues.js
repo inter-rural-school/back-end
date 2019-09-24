@@ -4,21 +4,21 @@ exports.up = function(knex) {
 
       issues.string("issue_title").notNullable();
       issues.string("issue_description").notNullable();
-      issues.timestamp("created_at").defaultTo(knex.fn.now()).notNullable();
+      issues.date("date").notNullable();
       issues.string('status').notNullable();
       issues
         .integer("comment_id")
         .unsigned()
         .references('id')
         .inTable('comments')
-        .onDelete("CASCADE")
+        .onDelete("RESTRICT")
         .onUpdate("CASCADE");
       issues
         .integer("school_id")
         .unsigned()
         .references('id')
         .inTable('schools')
-        .onDelete("CASCADE")
+        .onDelete("RESTRICT")
         .onUpdate("CASCADE");
     });
 };

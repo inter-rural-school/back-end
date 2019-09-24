@@ -20,7 +20,7 @@ exports.up = function(knex) {
         .nullable()
         .references('id')
         .inTable('admins')
-        .onDelete("CASCADE")
+        .onDelete("RESTRICT")
         .onUpdate("CASCADE");
       users
         .integer("board_id")
@@ -28,7 +28,7 @@ exports.up = function(knex) {
         .nullable()
         .references('id')
         .inTable('boards')
-        .onDelete("CASCADE")
+        .onDelete("RESTRICT")
         .onUpdate("CASCADE");
     });
 };

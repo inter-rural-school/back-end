@@ -8,14 +8,14 @@ exports.up = function(knex) {
         .unsigned()
         .references('id')
         .inTable('issues')
-        .onDelete("CASCADE")
+        .onDelete("RESTRICT")
         .onUpdate("CASCADE");
       comments
         .integer("board_id")
         .unsigned()
         .references('id')
         .inTable('boards')
-        .onDelete("CASCADE")
+        .onDelete("RESTRICT")
         .onUpdate("CASCADE");
     });
 };

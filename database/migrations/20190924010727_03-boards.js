@@ -7,7 +7,7 @@ exports.up = function(knex) {
         .nullable()
         .references('id')
         .inTable('users')
-        .onDelete("CASCADE")
+        .onDelete("RESTRICT")
         .onUpdate("CASCADE");
     });
 };

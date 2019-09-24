@@ -15,8 +15,9 @@ function findById() {
 }
 
 function getBoard(id) {
-  return db('users')
-    .innerJoin("users.board_id", "boards.id")
-    .select("users.first_name", "users.last_name", "users.email", "users.username")
-    .where({ board_id: id })
+  return db('boards as b')
+    .select("u.first_name", "u.last_name", "u.email", "u.username")
+    .join("users as u", "u.board_id", "b.id")
+    .where({ board_id: id})
+    .first();
 }

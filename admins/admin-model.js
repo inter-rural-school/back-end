@@ -21,3 +21,7 @@ function getAdmin(id) {
     .where({ admin_id: id})
     .first();
 }
+
+function updateAdminSchool(id) {
+  return db('admins')
+}
