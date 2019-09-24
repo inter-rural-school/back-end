@@ -31,5 +31,25 @@ router.get('/:id', (req, res) => {
     });
 });
 
+router.put('/:id', (req, res) => {
+  const { id } = req.params;
+  const changes = req.body;
+
+  Admins.getAdmin(id)
+  .then(admin => {
+    if (admin) {
+      Admins.updateAdmin(changes, id)
+      .then(updatedAdmin => {
+        res.status(200).json(updatedAdmin);
+      })
+    } else {
+      res.status(404).json({ message: 'This user does not exist' })
+    }
+  })
+  .catch(err => {
+      console.log(err)
+    res.status(500).json({ message: 'Failed to get admin' });
+  });
+});
 
 module.exports = router;

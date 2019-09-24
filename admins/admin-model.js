@@ -4,6 +4,7 @@ module.exports = {
   find,
   findById,
   getAdmin,
+  updateAdmin
 };
 
 function find() {
@@ -16,12 +17,14 @@ function findById() {
 
 function getAdmin(id) {
   return db('admins as a')
-    .select("u.first_name", "u.last_name", "u.email", "u.username")
+    .select("u.first_name", "u.last_name", "u.email", "u.username", "a.id", "a.school_id")
     .join("users as u", "u.admin_id", "a.id")
     .where({ admin_id: id})
     .first();
 }
 
-function updateAdminSchool(id) {
+function updateAdmin(changes, id) {
   return db('admins')
+    .where({id})
+    .update(changes);
 }
