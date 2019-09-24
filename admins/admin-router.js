@@ -52,4 +52,6 @@ router.put('/:id', (req, res) => {
   });
 });
 
+router.post('/:schoolid')
+
 module.exports = router;

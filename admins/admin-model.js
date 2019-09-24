@@ -4,11 +4,17 @@ module.exports = {
   find,
   findById,
   getAdmin,
-  updateAdmin
+  updateAdmin,
+  saveSchool
 };
 
 function find() {
   return db('admins');
+}
+
+function saveSchool(school) {
+    return db('admins')
+    .insert(school)
 }
 
 function findById() {
