@@ -4,13 +4,13 @@ const Boards = require('./board-model.js');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-    Boards.find()
+    Boards.getBoards()
         .then(boards => {
-            res.status(200).json(board);
+            res.status(200).json(boards);
             console.log(boards)
         })
         .catch(err => {
-            res.status(500).json({error: 'Could not get admins from server'});
+            res.status(500).json({error: 'Could not get board members from server'});
         });
 });
 

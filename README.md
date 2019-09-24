@@ -73,6 +73,9 @@ Tables Content:
 Endpoints Content:
 - [Login](#Login)
 - [Registration](#Registration)
+- [Admin](#Admin)
+- [Board](#Board)
+- [School](#School)
 
 ### Login
 
@@ -117,16 +120,74 @@ If any of the required fields are missing, it will reject the request with a `40
 If successful, it will return with a `201` HTTP status.
 
 ### Admin
-- In progress
-- will be able to make get request for admin data which contains:
-    - id, user_id (access to user data), school_id (gives access to school_name and location)
+- Get list of all admins (regardless of school) and returns an array of admins with get request:
+```
+https://internationalrsr.herokuapp.com/admins
+```
 
-### Boards
-- In progress
-- Will be able to make a get request for board data which contains:
-    - id, user_id (access to user data such as first_name, last_name, email, and username)
+- Get info of admin by id with get request:
+```
+https://internationalrsr.herokuapp.com/admins/:id
+```
+Returns:
+```
+{
+  "first_name": "test2",
+  "last_name": "test2",
+  "email": "test2@test.com",
+  "username": "test2",
+  "id": 1,
+  "school_id": 2
+}
+```
+- Edit admin school with put request (update school_id):
+```
+https://internationalrsr.herokuapp.com/admins/:id
+```
+Expects:
+```
+{
+  "school_id": 2
+}
+```
+This will update the school id of the user. Can change it from null (unassigned school at register) to a school that already exists. If school does not exist, then look at [School](#School) to create a new school.
 
-### Schools
+
+### Board
+- Get list of all board members with get request:
+```
+https://internationalrsr.herokuapp.com/boards
+```
+Returns an array of board member users:
+```
+[
+  {
+    "id": 1,
+    "user_id": 1
+  },
+  {
+    "id": 2,
+    "user_id": 2
+  }
+]
+```
+
+- Get Board Member information with get request to specific board member id:
+```
+https://internationalrsr.herokuapp.com/boards/:id
+```
+Expect on return:
+```
+{
+  "first_name": "test",
+  "last_name": "test",
+  "email": "test@test.com",
+  "username": "test",
+  "id": 1
+}
+```
+
+### School
 - Get list of schools with get:
 ```
 https://internationalrsr.herokuapp.com/schools
@@ -191,3 +252,18 @@ Expects:
 https://internationalrsr.herokuapp.com/schools/:schoolid
 ```
 Delete the specific school with schoolid (you will want to do this if the school no longer exists).
+
+- Get School Staff with get request:
+```
+https://internationalrsr.herokuapp.com/schoolstaff/schoolid
+```
+Returns an array of staff members (admins) at the school:
+```
+[
+  {
+    "id": 1,
+    "user_id": 3,
+    "school_id": 2
+  }
+]
+```

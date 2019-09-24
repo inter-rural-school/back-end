@@ -1,17 +1,12 @@
 const db = require('../database/dbConfig.js');
 
 module.exports = {
-  find,
-  findById,
+  getBoards,
   getBoard
 };
 
-function find() {
+function getBoards() {
   return db('boards');
-}
-
-function findById() {
-    return db('boards').where({ id });
 }
 
 function getBoard(id) {
