@@ -14,20 +14,22 @@ router.get('/', (req, res) => {
         });
 });
 
-router.get('/:school_id', (req, res) => {
-    const { school_id } = req.params;
-    Admins.getAdminsAtSchool(school_id)
-    .then(school => {
-        if (school) {
-            res.status(200).json(school)
-        } else {
-            res.status(404).json({message: "School with this id does not exist"})
-        }
-
+router.get('/:id', (req, res) => {
+    const { id } = req.params;
+  
+    Admins.getAdmin(id)
+    .then(admin => {
+      if (admin) {
+        res.status(200).json(admin);
+      } else {
+        res.status(404).json({ message: 'This user does not exist' })
+      }
     })
     .catch(err => {
-        res.status(500).json({error: "Error getting school from database"})
-    })
+        console.log(err)
+      res.status(500).json({ message: 'Failed to get admin' });
+    });
 });
+
 
 module.exports = router;

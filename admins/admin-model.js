@@ -4,7 +4,6 @@ module.exports = {
   find,
   findById,
   getAdmin,
-  getAdminsAtSchool
 };
 
 function find() {
@@ -16,13 +15,9 @@ function findById() {
 }
 
 function getAdmin(id) {
-  return db('admins')
-    .join("users.admin_id", "admins.id")
-    .join("admins.school_id", "schools.id")
-    .select("users.first_name", "users.last_name", "users.email", "users.username", "schools.school_name")
-    .where({ id })
-}
-
-function getAdminsAtSchool(school_id){
-  return db('admins').where({school_id});
+  return db('admins as a')
+    .select("u.first_name", "u.last_name", "u.email", "u.username")
+    .join("users as u", "u.admin_id", "a.id")
+    .where({ admin_id: id})
+    .first();
 }
