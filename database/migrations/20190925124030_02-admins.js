@@ -8,7 +8,7 @@ exports.up = function(knex) {
         .nullable()
         .references('id')
         .inTable('users')
-        .onDelete("RESTRICT")
+        .onDelete("CASCADE")
         .onUpdate("CASCADE");
 
       admins
@@ -17,7 +17,7 @@ exports.up = function(knex) {
         .nullable()
         .references('id')
         .inTable('schools')
-        .onDelete("RESTRICT")
+        .onDelete("CASCADE")
         .onUpdate("CASCADE");
     });
 };

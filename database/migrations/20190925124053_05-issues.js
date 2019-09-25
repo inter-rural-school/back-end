@@ -11,14 +11,14 @@ exports.up = function(knex) {
         .unsigned()
         .references('id')
         .inTable('comments')
-        .onDelete("RESTRICT")
+        .onDelete("CASCADE")
         .onUpdate("CASCADE");
       issues
         .integer("school_id")
         .unsigned()
         .references('id')
         .inTable('schools')
-        .onDelete("RESTRICT")
+        .onDelete("CASCADE")
         .onUpdate("CASCADE");
     });
 };

@@ -63,15 +63,13 @@ router.put('/:id', (req, res) => {
 
 router.delete('/:id', (req, res) => {
     const { id } = req.params;
+    console.log(id);
 
     Issues.removeIssue(id)
     .then(deleted => {
+        console.log(deleted)
         if (deleted) {
-            const {commentid} = req.body
-            Comments.deleteComment(commentid)
-            .then(deletedCom => {
-                res.status(200).json(deletedCom);
-            })
+            res.status(200).json(deleted);
       } else {
         res.status(404).json({ message: 'This user does not exist' })
       }
