@@ -5,7 +5,7 @@ const Comments = require('../comments/comment-model.js');
 const restricted = require("../auth/restricted-middleware.js");
 const router = express.Router();
 
-router.post('/', restricted, (req, res) => {
+router.post('/', (req, res) => {
     const issue = req.body
   
     Issues.createIssue(issue)
@@ -17,7 +17,7 @@ router.post('/', restricted, (req, res) => {
     });
 });
 
-router.get('/', restricted, (req, res) => {
+router.get('/', (req, res) => {
     Issues.getAllIssues()
         .then(issues => {
             res.status(200).json(issues);
@@ -27,7 +27,7 @@ router.get('/', restricted, (req, res) => {
         });
 });
 
-router.get('/:id', restricted, (req, res) => {
+router.get('/:id', (req, res) => {
     const {id} = req.params;
     Issues.getAnIssues(id)
     .then(issues => {
@@ -43,7 +43,7 @@ router.get('/:id', restricted, (req, res) => {
     })
 })
 
-router.put('/:id', restricted, (req, res) => {
+router.put('/:id', (req, res) => {
     const { id } = req.params;
     const changes = req.body;
   
