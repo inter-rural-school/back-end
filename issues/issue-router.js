@@ -34,7 +34,7 @@ router.get('/:id', (req, res) => {
         if (issues) {
             res.status(200).json(issues)
         } else {
-            res.status(404).json({message: "School with this id does not exist"})
+            res.status(404).json({message: "Issue with this id does not exist"})
         }
 
     })

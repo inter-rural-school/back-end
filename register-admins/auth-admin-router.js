@@ -1,6 +1,7 @@
 const express = require('express');
 
 const Auth = require('./auth-admin-model.js');
+const restricted = require("../auth/restricted-middleware.js");
 const router = express.Router();
 
 router.get('/admins', (req, res) => {
@@ -14,7 +15,7 @@ router.get('/admins', (req, res) => {
         });
 });
 
-router.get('/admins/:id', (req, res) => {
+router.get('/admins/:id', restricted, (req, res) => {
     const { id } = req.params;
   
     Auth.getAdmin(id)
@@ -31,7 +32,7 @@ router.get('/admins/:id', (req, res) => {
     });
 });
 
-router.put('/admins/:id', (req, res) => {
+router.put('/admins/:id', restricted, (req, res) => {
   const { id } = req.params;
   const changes = req.body;
 
@@ -68,7 +69,7 @@ router.get('/schools/:schoolid', (req, res) => {
   })
 });
 
-router.get('/schools', (req, res) => {
+router.get('/schools', restricted, (req, res) => {
   Auth.getSchools()
       .then(schools => {
           res.status(200).json(schools);

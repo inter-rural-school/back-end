@@ -11,6 +11,17 @@ router.get('/', (req,res) => {
         res.status(200).json(comment)
     })
     .catch (err => {
+        res.status(500).json({ message: 'Failed to get all comments and issues' });
+    });
+})
+
+router.get('/:id', (req,res) => {
+    const {id} = req.params;
+    Comments.getCommentById(id)
+    .then(comment => {
+        res.status(200).json(comment)
+    })
+    .catch (err => {
         res.status(500).json({ message: 'Failed to get comment on issue' });
     });
 })

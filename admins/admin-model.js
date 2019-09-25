@@ -5,7 +5,8 @@ module.exports = {
   findById,
   getAdmin,
   updateAdmin,
-  saveSchool
+  saveSchool,
+  addAdminSchool
 };
 
 function find() {
@@ -34,3 +35,7 @@ function updateAdmin(changes, id) {
     .where({id})
     .update(changes);
 }
+
+function addAdminSchool(admin) {
+  return  db("admins").insert(admin)
+ }

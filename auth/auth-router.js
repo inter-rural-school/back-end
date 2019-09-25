@@ -105,4 +105,14 @@ function userType(req, res, next) {
   }
 }
 
+// function schoolId (req, res, next) {
+//   const {id} = req.body.admin;
+//   console.log(id)
+//   const school_id = parseInt(req.body.school_id, 10);
+//   Users.addAdmin({school_id, id})
+//     .then(addSchool => {
+//       req.admin.school_id = [school_id]
+//     })
+// }
+
 module.exports = router;
