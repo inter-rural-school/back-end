@@ -1,6 +1,7 @@
 const express = require('express');
 
 const Schools = require('./school-model.js');
+const restricted = require("../auth/restricted-middleware.js");
 const router = express.Router();
 
 router.get('/', (req, res) => {

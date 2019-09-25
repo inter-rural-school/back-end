@@ -2,9 +2,10 @@ const express = require('express');
 
 const Issues = require('./issue-model.js');
 const Comments = require('../comments/comment-model.js');
+const restricted = require("../auth/restricted-middleware.js");
 const router = express.Router();
 
-router.post('/', (req, res) => {
+router.post('/', restricted, (req, res) => {
     const issue = req.body
   
     Issues.createIssue(issue)
@@ -16,7 +17,7 @@ router.post('/', (req, res) => {
     });
 });
 
-router.get('/', (req, res) => {
+router.get('/', restricted, (req, res) => {
     Issues.getAllIssues()
         .then(issues => {
             res.status(200).json(issues);
@@ -26,7 +27,7 @@ router.get('/', (req, res) => {
         });
 });
 
-router.get('/:id', (req, res) => {
+router.get('/:id', restricted, (req, res) => {
     const {id} = req.params;
     Issues.getAnIssues(id)
     .then(issues => {
@@ -42,7 +43,7 @@ router.get('/:id', (req, res) => {
     })
 })
 
-router.put('/:id', (req, res) => {
+router.put('/:id', restricted, (req, res) => {
     const { id } = req.params;
     const changes = req.body;
   
@@ -59,4 +60,26 @@ router.put('/:id', (req, res) => {
       res.status(500).json({ message: 'Failed to get issue from database' });
     });
 });
+
+router.delete('/:id', (req, res) => {
+    const { id } = req.params;
+
+    Issues.removeIssue(id)
+    .then(deleted => {
+        if (deleted) {
+            const {commentid} = req.body
+            Comments.deleteComment(commentid)
+            .then(deletedCom => {
+                res.status(200).json(deletedCom);
+            })
+      } else {
+        res.status(404).json({ message: 'This user does not exist' })
+      }
+    })
+    .catch (err => {
+        console.log(err)
+        res.status(500).json({message: 'Failed to delete issue from database'})
+    })
+})
+
 module.exports = router;

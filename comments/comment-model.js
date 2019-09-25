@@ -3,7 +3,8 @@ const db = require('../database/dbConfig.js');
 module.exports = {
   getByIssueId,
   getComment,
-  createComment
+  createComment,
+  removeComment
 };
 
 function getComment() {
@@ -24,3 +25,9 @@ function getByIssueId(id) {
 function createComment(comment) {
     return db('comments').insert(comment);
 }
+
+function removeComment(id) {
+    return db("comments")
+      .where({ id })
+      .del();
+  }

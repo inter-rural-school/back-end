@@ -6,7 +6,8 @@ module.exports = {
   getAllIssues,
   getAnIssues,
   editIssue,
-  insert
+  insert,
+  removeIssue
 };
 
 //Admins should be able to create issues
@@ -32,7 +33,7 @@ function editIssue(changes, id) {
 
 function getById(id) {
     const issueQuery = db('issues').where({id}).first();
-    return Promise.all([issueQuery, Comments.getIssueByIdd(id)])
+    return Promise.all([issueQuery, Comments.getIssueById(id)])
         .then(([issue, comments]) => {
             issue.comments =comments;
             return issue;
@@ -43,4 +44,10 @@ function insert (issue){
     return db('issues')
     .insert(issue, 'id')
     .then(([id]) => getById(id));
+}
+  
+function removeIssue(id) {
+  return db("issues")
+    .where({ id })
+    .del();
 }
