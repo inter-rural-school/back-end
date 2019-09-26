@@ -17,8 +17,8 @@ router.get("/", (req, res) => {
 });
 
 router.post('/register', validateRegister, userType, (req, res) => {
-  const { first_name, last_name, email, username, password, admin_id, board_id } = req.body;
-  const user = { first_name, last_name, email, username, password, admin_id, board_id };
+  const { first_name, last_name, email, username, password, admin_id, isBoardMember,board_id } = req.body;
+  const user = { first_name, last_name, email, username, password, admin_id, isBoardMember, board_id };
   const hash = bcrypt.hashSync(user.password);
   user.password = hash;
   Users.add(user)
@@ -26,6 +26,7 @@ router.post('/register', validateRegister, userType, (req, res) => {
     res.status(201).json(added);
   })
   .catch(err => {
+    console.log(err);
     res.status(500).json({ message: "Error registering user in database" });
   });
 });
