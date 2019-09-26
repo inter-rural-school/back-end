@@ -17,11 +17,10 @@ router.get("/", (req, res) => {
 });
 
 router.post('/register', validateRegister, userType, (req, res) => {
-  const user = req.body;
+  const { first_name, last_name, email, username, password, admin_id, board_id } = req.body;
+  const user = { first_name, last_name, email, username, password, admin_id, board_id };
   const hash = bcrypt.hashSync(user.password);
   user.password = hash;
-  console.log(user);
-
   Users.add(user)
   .then(added => {
     res.status(201).json(added);
@@ -89,7 +88,7 @@ function validateRegister(req, res, next) {
 }
 
 function userType(req, res, next) {
-  const {isBoardMember} = req.body;
+  const {isBoardMember, school_id} = req.body;
   if (isBoardMember === 1) {
     Users.addBoard({ user_id: null })
     .then(added => {
@@ -97,22 +96,12 @@ function userType(req, res, next) {
       next();
     })
   } else if (isBoardMember === 0) {
-    Users.addAdmin({user_id: null, school_id: null})
+    Users.addAdmin({user_id: null, school_id: school_id })
     .then(added => {
       req.body.admin_id = added[0];
       next();
     })
   }
 }
-
-// function schoolId (req, res, next) {
-//   const {id} = req.body.admin;
-//   console.log(id)
-//   const school_id = parseInt(req.body.school_id, 10);
-//   Users.addAdmin({school_id, id})
-//     .then(addSchool => {
-//       req.admin.school_id = [school_id]
-//     })
-// }
 
 module.exports = router;
