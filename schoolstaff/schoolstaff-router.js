@@ -15,7 +15,7 @@ router.get('/:school_id', (req, res) => {
 
     })
     .catch(err => {
-        res.status(500).json({error: "Error getting school from database"})
+        res.status(500).json({error: "Error getting school staff from database"})
     })
 });
 

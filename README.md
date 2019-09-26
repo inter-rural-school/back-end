@@ -76,6 +76,8 @@ Endpoints Content:
 - [Admin](#Admin)
 - [Board](#Board)
 - [School](#School)
+- [Issue](#Issue)
+- [Comment](#Comment)
 
 ### Login
 
@@ -287,3 +289,7 @@ Returns an array of staff members (admins) at the school:
   }
 ]
 ```
+
+### Issue
+
+### Comment
