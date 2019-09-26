@@ -69,7 +69,7 @@ router.get('/schools/:schoolid', (req, res) => {
   })
 });
 
-router.get('/schools', restricted, (req, res) => {
+router.get('/schools', (req, res) => {
   Auth.getSchools()
       .then(schools => {
           res.status(200).json(schools);
