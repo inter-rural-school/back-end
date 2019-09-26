@@ -6,7 +6,6 @@ module.exports = {
   getAllIssues,
   getAnIssues,
   editIssue,
-  insert,
   removeIssue
 };
 
@@ -31,20 +30,6 @@ function editIssue(changes, id) {
     .update(changes);
 }
 
-function getById(id) {
-    const issueQuery = db('issues').where({id}).first();
-    return Promise.all([issueQuery, Comments.getIssueById(id)])
-        .then(([issue, comments]) => {
-            issue.comments =comments;
-            return issue;
-        });
-}
-
-function insert (issue){
-    return db('issues')
-    .insert(issue, 'id')
-    .then(([id]) => getById(id));
-}
   
 function removeIssue(id) {
   return db("issues")

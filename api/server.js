@@ -29,7 +29,7 @@ server.use("/issues", issueRoute);
 server.use("/comments", commentRoute);
 
 server.get('/', (req, res) => {
-    res.send('working in the irsr server');
+    res.send('Working in the International Rural School Report server');
 });
   
 

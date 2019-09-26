@@ -32,7 +32,7 @@ router.get('/:id', (req, res) => {
     Issues.getAnIssues(id)
     .then(issues => {
         if (issues) {
-            res.status(200).json(issues)
+            res.status(201).json(issues)
         } else {
             res.status(404).json({message: "Issue with this id does not exist"})
         }
