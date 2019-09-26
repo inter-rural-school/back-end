@@ -25,7 +25,9 @@ function findById() {
 function getAdmin(id) {
   return db('admins as a')
     .select("u.first_name", "u.last_name", "u.email", "u.username", "a.id", "a.school_id")
+    .select("s.school_name", "s.location", "s.id", "a.school_id")
     .join("users as u", "u.admin_id", "a.id")
+    .join("schools as s", "s.id", "a.school_id")
     .where({ admin_id: id})
     .first();
 }

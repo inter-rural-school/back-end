@@ -17,7 +17,7 @@ router.get("/", (req, res) => {
 });
 
 router.post('/register', validateRegister, userType, (req, res) => {
-  const { first_name, last_name, email, username, password, admin_id, isBoardMember,board_id } = req.body;
+  const { first_name, last_name, email, username, password, admin_id, isBoardMember, board_id } = req.body;
   const user = { first_name, last_name, email, username, password, admin_id, isBoardMember, board_id };
   const hash = bcrypt.hashSync(user.password);
   user.password = hash;
@@ -32,16 +32,17 @@ router.post('/register', validateRegister, userType, (req, res) => {
 });
 
 router.post('/login', (req, res) => {
-  let { username, password } = req.body;
+  let {username, password} = req.body;
   Users.find({ username })
   .first()
   .then(user => {
+    console.log(user)
     if (user && bcrypt.compareSync(password, user.password)) {
       const token = getJwt(user);
       res.status(200).json({
         message: `Hello ${user.first_name} ${user.last_name}, you have logged in as ${user.username}`,
-        user,
-        token
+        token,
+        user
       });
     } else {
       res.status(401).json({ message: "Incorrect username or password" });
