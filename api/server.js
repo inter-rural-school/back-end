@@ -22,10 +22,15 @@ server.use(express.json());
 server.use("/auth", authRoute);
 server.use("/schools", schoolRoute);
 server.use("/admins", adminRoute);
-server.use("/auth/register", adminRoute);
+server.use("/auth/register", authAdminRoute);
 server.use("/boards", boardRoute);
 server.use("/schoolstaff", schoolstaffRoute);
 server.use("/issues", issueRoute);
 server.use("/comments", commentRoute);
+
+server.get('/', (req, res) => {
+    res.send('working in the irsr server');
+});
+  
 
 module.exports = server;
