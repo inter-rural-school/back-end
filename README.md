@@ -277,7 +277,7 @@ Delete the specific school with schoolid (you will want to do this if the school
 
 - Get School Staff with get request:
 ```
-https://internationalrsr.herokuapp.com/schoolstaff/schoolid
+https://internationalrsr.herokuapp.com/schoolstaff/:schoolid
 ```
 Returns an array of staff members (admins) at the school:
 ```
@@ -292,4 +292,62 @@ Returns an array of staff members (admins) at the school:
 
 ### Issue
 
+- Get all issues with get request:
+```
+https://internationalrsr.herokuapp.com/issues
+```
+
+- Get an issue with get request:
+```
+https://internationalrsr.herokuapp.com/issues/:id
+```
+- Create an issue with post:
+```
+https://internationalrsr.herokuapp.com/issues
+{
+	"issue_title": "Test",
+	"issue_description": "Test",
+	"date": "2019-09-23",
+	"status": "in-progress",
+	"school_id": "1"
+}
+```
+
+- Edit an issue with put request:
+```
+https://internationalrsr.herokuapp.com/issues/:id
+
+{
+	"issue_title": "Test",
+	"issue_description": "Test",
+	"date": "2019-09-23",
+	"status": "in-progress",
+}
+```
+
+- Delete an issue with delete request:
+```
+https://internationalrsr.herokuapp.com/issues/:id
+```
+
 ### Comment
+
+- Get all comments with get request:
+```
+https://internationalrsr.herokuapp.com/comments
+```
+
+- Get a comment with get request:
+```
+https://internationalrsr.herokuapp.com/comments/:id
+```
+- Create a comment with post:
+```
+https://internationalrsr.herokuapp.com/issues
+
+{
+	"comment": "Will resolve this issue soon",
+	"board_id": 5,
+	"issue_id": 2
+}
+```

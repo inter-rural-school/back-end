@@ -44,4 +44,4 @@ function removeComment(id) {
     return db("comments")
       .where({ id })
       .del();
-  }
+}
